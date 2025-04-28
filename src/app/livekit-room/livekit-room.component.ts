@@ -353,8 +353,7 @@ export class LivekitRoomComponent {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
-  ) {
-  }
+  ) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -484,9 +483,6 @@ export class LivekitRoomComponent {
       console.error('Speech Recognition API is not supported in this browser.');
     }
   }
-  // ngOnChanges() {
-  //   this.scrollToBottom();
-  // }
 
   ngOnDestroy() {
     if (this.subscription) {
@@ -498,14 +494,6 @@ export class LivekitRoomComponent {
     if (this.screenShareSubscription) {
       this.screenShareSubscription.unsubscribe();
     }
-    // Clean up the event listener when the component is destroyed
-    // document.removeEventListener('visibilitychange', () => {
-    //   if (document.hidden) {
-    //     this.enterPiP();
-    //   } else {
-    //     this.onLeavePiP();
-    //   }
-    // });
   }
 
   async onDeviceSelected(kind: MediaDeviceKind, deviceId: string) {
@@ -1327,8 +1315,6 @@ export class LivekitRoomComponent {
     // }
   }
 
-
-
   openNotesSideWindow(): void {
     this.store.dispatch(
       LiveKitRoomActions.LiveKitActions.toggleNotesSideWindow()
@@ -1921,8 +1907,6 @@ export class LivekitRoomComponent {
           playerContainer.style.height = '75vh';
           playerContainer.style.overflow = 'hidden';
         }
-        // const pipBody = this.pipWindow.document.body;
-        // pipVideoLayout.style.overflow = 'hidden';
         // Copy over initial styles and elements to the PiP window
         this.copyStylesToPiP();
         this.updatePiPWindow();
@@ -2054,14 +2038,11 @@ export class LivekitRoomComponent {
     // Clone the current state of the main container into the PiP window
     const clonedContainer = mainContainer.cloneNode(true) as HTMLElement;
     // Clone the modal (if present) into the PiP window
-    // const modalElement = document.querySelector('#pipModal') as HTMLElement; // Update with your modal's ID or class
     const modalElement = this.pipModal.nativeElement;
     if (modalElement) {
       modalElement.remove();
       const clonedModal = modalElement.cloneNode(true) as HTMLElement;
       pipBody.appendChild(clonedModal);
-      // Remove the modal from the main DOM
-      // this.renderer.setStyle(this.pipModal.nativeElement, 'display', 'none');
       // Attach event listeners for modal buttons
       const allowButton = clonedModal.querySelector('#allowButton'); // Replace with the ID or selector of your allow button
       const cancelButton = clonedModal.querySelector('#cancelButton'); // Replace with the ID or selector of your cancel button
