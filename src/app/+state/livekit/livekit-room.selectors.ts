@@ -119,7 +119,6 @@ export const selectPreviewMic = createSelector(
   (state: LiveKitRoomState) => state.isPreviewMicOn
 );
 
-
 export const selectParticipantIdsByRoomName = createSelector(
   selectLiveKitRoomState,
   (state) => {
@@ -167,6 +166,14 @@ export const selectNotesSideWindowVisible = createSelector(
   (state: LiveKitRoomState) => state.notesSideWindowVisible
 );
 
+export const selectIsInitialScreenStarted = createSelector(
+  selectLiveKitRoomState,
+  (state) => {
+    console.log('selector screen', state.isInitialScreenStarted);
+    return state.isInitialScreenStarted;
+  }
+);
+
 export const selectLiveKitRoomViewState = createSelector(
   selectIsMeetingStarted,
   selectIsVideoOn,
@@ -193,6 +200,7 @@ export const selectLiveKitRoomViewState = createSelector(
   selectPreviewVideo,
   selectPreviewMic,
   selectNotesSideWindowVisible,
+  selectIsInitialScreenStarted,
   (
     isMeetingStarted,
     isVideoOn,
@@ -218,7 +226,8 @@ export const selectLiveKitRoomViewState = createSelector(
     ParticipantIdsByRoomName,
     previewVideo,
     previewMic,
-    notesSideWindowVisible
+    notesSideWindowVisible,
+    isInitialScreenStarted
   ) => ({
     isMeetingStarted,
     isVideoOn,
@@ -244,6 +253,7 @@ export const selectLiveKitRoomViewState = createSelector(
     ParticipantIdsByRoomName,
     previewVideo,
     previewMic,
-    notesSideWindowVisible
+    notesSideWindowVisible,
+    isInitialScreenStarted,
   })
 );

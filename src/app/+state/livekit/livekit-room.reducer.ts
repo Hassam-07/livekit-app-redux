@@ -36,6 +36,7 @@ export interface LiveKitRoomState {
   isPreviewMicOn: boolean;
   isPreviewVideoOn: boolean;
   notesSideWindowVisible: boolean;
+  isInitialScreenStarted: boolean;
 }
 
 export const initialState: LiveKitRoomState = {
@@ -67,6 +68,7 @@ export const initialState: LiveKitRoomState = {
   isPreviewMicOn: false,
   isPreviewVideoOn: false,
   notesSideWindowVisible: false,
+  isInitialScreenStarted: false,
 };
 
 export const liveKitRoomReducer = createReducer(
@@ -507,6 +509,13 @@ export const liveKitRoomReducer = createReducer(
     (state, { isPreviewMic }) => ({
       ...state,
       isPreviewMicOn: isPreviewMic,
+    })
+  ),
+  on(
+    LiveKitRoomActions.MeetingActions.setInitialScreenStarted,
+    (state, { started }) => ({
+      ...state,
+      isInitialScreenStarted: started,
     })
   )
 );

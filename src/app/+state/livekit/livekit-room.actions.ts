@@ -12,6 +12,7 @@ export const MeetingActions = createActionGroup({
     leaveMeetingSuccess: emptyProps(),
     leaveMeetingFailure: props<{ error: any }>(),
     setRoomName: props<{ roomName: string }>(),
+    setInitialScreenStarted: props<{ started: boolean }>(),
   },
 });
 

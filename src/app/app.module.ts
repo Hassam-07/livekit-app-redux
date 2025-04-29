@@ -29,6 +29,8 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MeetingNotesComponent } from './meeting-notes/meeting-notes.component';
+import { JoinRoomScreenComponent } from './livekit-room/meeting-start/join-room-screen/join-room-screen.component';
+import { StartScreenComponent } from './livekit-room/meeting-start/start-screen/start-screen.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { MeetingNotesComponent } from './meeting-notes/meeting-notes.component';
     LivekitRoomComponent,
     VideoPlayerComponent,
     MeetingNotesComponent,
+    JoinRoomScreenComponent,
+    StartScreenComponent,
   ],
   imports: [
     BrowserModule,

@@ -36,6 +36,7 @@ import { BreakoutRoom } from '../+state/livekit/livekit-room.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideoBookMark } from '../models/video-player.model';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { JoinRoomScreenComponent } from './meeting-start/join-room-screen/join-room-screen.component';
 
 declare global {
   interface Window {
@@ -95,6 +96,8 @@ export interface CanvasPath {
   ],
 })
 export class LivekitRoomComponent {
+  @ViewChild(JoinRoomScreenComponent)
+  joinMeetingComponent!: JoinRoomScreenComponent;
   currentTime = 0;
   isModalOpen = false; // Tracks if the modal is open or closed
   activeBookmark: VideoBookMark | undefined;
@@ -1030,12 +1033,29 @@ export class LivekitRoomComponent {
   }
 
   initialStartMeeting() {
-    this.isInitialMeetingStarted = true; // Set to true when meeting starts
-    this.startMeeting();
+    // this.isInitialMeetingStarted = true; // Set to true when meeting starts
+    this.store.dispatch(
+      LiveKitRoomActions.MeetingActions.setInitialScreenStarted({
+        started: true,
+      })
+    );
+    this.store.dispatch(
+      LiveKitRoomActions.MeetingActions.createMeeting({
+        participantNames: [this.participantName],
+        roomName: this.roomName,
+      })
+    );
+    console.log('participant name ', this.participantName);
   }
-  startMeetingUI() {
-    this.isInitialMeetingStarted = false;
-    this.meetingUi = true;
+  // startMeetingUI() {
+  //   this.isInitialMeetingStarted = false;
+  //   this.meetingUi = true;
+  // }
+  meetingStarted(isReady: boolean) {
+    if (isReady) {
+      // Call startMeeting() when it's ready
+      this.joinMeetingComponent.startMeeting();
+    }
   }
   /**
    * Initiates the start of a meeting by dispatching a startMeeting action
