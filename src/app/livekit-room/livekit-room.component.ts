@@ -101,7 +101,7 @@ export class LivekitRoomComponent {
   currentTime = 0;
   isModalOpen = false; // Tracks if the modal is open or closed
   activeBookmark: VideoBookMark | undefined;
-
+  dynamicRoomName = '';
   // Reactive Form Group
   bookmarkForm: FormGroup;
   isSpeaking: boolean = false;
@@ -1042,7 +1042,7 @@ export class LivekitRoomComponent {
     this.store.dispatch(
       LiveKitRoomActions.MeetingActions.createMeeting({
         participantNames: [this.participantName],
-        roomName: this.roomName,
+        roomName: this.dynamicRoomName,
       })
     );
     console.log('participant name ', this.participantName);

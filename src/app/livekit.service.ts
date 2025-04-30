@@ -902,6 +902,258 @@ export class LivekitService {
      * @param {LocalTrackPublication} publication - The track publication.
      * @param {LocalParticipant} participant - The participant who published the track.
      */
+    // this.room.on(
+    //   RoomEvent.LocalTrackPublished,
+    //   async (
+    //     publication: LocalTrackPublication,
+    //     participant: LocalParticipant
+    //   ) => {
+    //     if (publication.track?.source === Track.Source.Camera) {
+    //       const participantTile = document.getElementById(`${participant.sid}`);
+    //       console.log('testing avatar', participantTile);
+    //       if (participantTile) {
+    //         // Remove the avatar image if it exists
+    //         const avatarImg = participantTile.querySelector('img');
+    //         if (avatarImg) {
+    //           participantTile.removeChild(avatarImg);
+    //         }
+
+    //         // Attach the video track to the participant tile
+    //         const element = publication.track.attach() as HTMLVideoElement;
+    //         element.setAttribute('class', 'pip-video');
+    //         participantTile.appendChild(element);
+    //         element.setAttribute(
+    //           'style',
+    //           `
+    //             border-radius: 0.5rem;
+    //             width: 100%;
+    //             height: 100%;
+    //             object-fit: cover;
+    //             object-position: center;
+    //             background-color: #000;
+    //           `
+    //         );
+
+    //         // Create metadata container if it doesn't already exist
+    //         let el3 = participantTile.querySelector('.lk-participant-metadata');
+    //         if (!el3) {
+    //           el3 = document.createElement('div');
+    //           el3.setAttribute('class', 'lk-participant-metadata');
+    //           el3.setAttribute(
+    //             'style',
+    //             `
+    //               position: absolute;
+    //               right: 0.25rem;
+    //               bottom: 0.25rem;
+    //               left: 0.25rem;
+    //               display: flex;
+    //               flex-direction: row;
+    //               align-items: center;
+    //               justify-content: space-between;
+    //               gap: 0.5rem;
+    //               line-height: 1;
+    //             `
+    //           );
+    //           const el4 = document.createElement('div');
+    //           el4.setAttribute('class', 'lk-participant-metadata-item');
+    //           el4.setAttribute(
+    //             'style',
+    //             `
+    //               display: flex;
+    //               align-items: center;
+    //               padding: 0.25rem;
+    //               background-color: rgba(0, 0, 0, 0.5);
+    //               border-radius: calc(var(--lk-border-radius) / 2);
+    //             `
+    //           );
+
+    //           const el5 = document.createElement('span');
+    //           el5.setAttribute('class', 'lk-participant-name');
+    //           el5.setAttribute(
+    //             'style',
+    //             `
+    //               font-size: 0.875rem;
+    //               color: white;
+    //             `
+    //           );
+    //           el5.innerText = participant.identity;
+
+    //           el4.appendChild(el5);
+    //           el3.appendChild(el4);
+    //           participantTile.appendChild(el3);
+
+    //           // await element.requestPictureInPicture();
+    //         }
+
+    //         console.log('local track published', publication.track);
+    //       } else {
+    //         console.error('Participant tile not found');
+    //         this.openSnackBar(`Video could not open. Try again later`);
+    //       }
+    //     }
+
+    //     if (
+    //       publication.source === Track.Source.Microphone &&
+    //       publication.track instanceof LocalAudioTrack
+    //     ) {
+    //       if (!isKrispNoiseFilterSupported()) {
+    //         console.warn(
+    //           'Krisp noise filter is currently not supported on this browser'
+    //         );
+    //         return;
+    //       }
+    //       // Once instantiated, the filter will begin initializing and will download additional resources
+    //       const krispProcessor = KrispNoiseFilter();
+    //       console.log('Enabling LiveKit Krisp noise filter');
+    //       await publication.track.setProcessor(krispProcessor);
+
+    //       // To enable/disable the noise filter, use setEnabled()
+    //       await krispProcessor.setEnabled(true);
+    //       console.log(
+    //         `Krisp noise filter status: ${
+    //           krispProcessor.isEnabled() ? 'Enabled' : 'Disabled'
+    //         }`
+    //       );
+    //       // To check the current status use:
+    //       // krispProcessor.isEnabled()
+
+    //       // To stop and dispose of the Krisp processor, simply call:
+    //       // await trackPublication.track.stopProcessor()
+    //     }
+    //     // if (publication.track && publication.track.kind === 'audio') {
+    //     //   const participantTile = document.getElementById(`${participant.sid}`);
+    //     //   if (participantTile) {
+    //     //     // Remove any existing microphone visualizations
+    //     //     let micVisualization =
+    //     //       participantTile.querySelector('.mic-visualization');
+    //     //     if (micVisualization) {
+    //     //       participantTile.removeChild(micVisualization);
+    //     //     }
+
+    //     //     // Create and append the mic visualization container
+    //     //     micVisualization = document.createElement('div');
+    //     //     micVisualization.classList.add('mic-visualization');
+    //     //     micVisualization.setAttribute(
+    //     //       'style',
+    //     //       `
+    //     //       height: 10vh;
+    //     //       width: 10vh;
+    //     //       display: flex;
+    //     //       align-items: center;
+    //     //       justify-content: center;
+    //     //       background: rgb(20, 112, 233);
+    //     //       border-radius: 100%;
+    //     //     `
+    //     //     );
+
+    //     //     const canvas = document.createElement('canvas');
+    //     //     canvas.width = 150; // Set desired canvas size
+    //     //     canvas.height = 150;
+    //     //     canvas.style.borderRadius = '5px';
+    //     //     canvas.style.width = '3rem';
+    //     //     canvas.style.height = '70%';
+
+    //     //     micVisualization.appendChild(canvas);
+    //     //     participantTile.appendChild(micVisualization);
+
+    //     //     // Start microphone visualization
+    //     //     const audioTrack = publication.track as LocalAudioTrack; // Type assertion
+    //     //     this.startMicVisualization(canvas, audioTrack);
+    //     //   } else {
+    //     //     console.error(
+    //     //       `Participant tile for ${participant.identity} not found`
+    //     //     );
+    //     //   }
+    //     // }
+
+    //     this.screenShareTrackSubscribed.next(publication.track);
+    //     if (publication.source === Track.Source.ScreenShare) {
+    //       this.localScreenShareCount++;
+    //       this.speakerModeLayout = false;
+    //       console.error('Local Screen Share count', this.localScreenShareCount);
+    //       setTimeout(() => {
+    //         const el2 = document.createElement('div');
+    //         el2.setAttribute('class', 'lk-participant-tile');
+
+    //         el2.setAttribute('id', `screenshare-${participant.sid}`);
+    //         el2.setAttribute(
+    //           'style',
+    //           ` --lk-speaking-indicator-width: 2.5px;
+    //         position: relative;
+    //         display: flex;
+    //         flex-direction: column;
+    //         height:100%;
+    //         gap: 0.375rem;
+    //         overflow: hidden;
+    //         border-radius: 0.5rem;`
+    //         );
+    //         const screenShareTrack = publication.track?.attach();
+    //         screenShareTrack.setAttribute('class', 'pip-screenShare');
+    //         if (screenShareTrack) {
+    //           const container = document.querySelector('.lk-focus-layout');
+    //           console.log('screenshare container', container);
+    //           // el2.appendChild(container);
+
+    //           screenShareTrack.setAttribute(
+    //             'style',
+    //             'width: 100%; height: 100%; object-fit: cover; object-position: center; background-color: #000; object-fit: cover;  object-fit: contain;background-color: #1e1e1e;'
+    //           );
+    //           const el3 = document.createElement('div');
+    //           el3.setAttribute('class', 'lk-participant-metadata');
+    //           el3.setAttribute(
+    //             'style',
+    //             `position: absolute;
+    //           right: 0.25rem;
+    //           bottom: 0.25rem;
+    //           left: 0.25rem;
+    //           display: flex;
+    //           flex-direction: row;
+    //           align-items: center;
+    //           justify-content: space-between;
+    //           gap: 0.5rem;
+    //           line-height: 1;`
+    //           );
+    //           const el4 = document.createElement('div');
+    //           el4.setAttribute('class', 'lk-participant-metadata-item');
+    //           el4.setAttribute(
+    //             'style',
+    //             `display: flex;
+    //           align-items: center;
+    //           padding: 0.25rem;
+    //           background-color: rgba(0, 0, 0, 0.5);
+    //           border-radius: 0.25rem;`
+    //           );
+    //           const el5 = document.createElement('span');
+    //           el5.setAttribute('class', 'lk-participant-name');
+    //           el5.setAttribute(
+    //             'style',
+    //             ` font-size: 0.875rem;
+    //           color: white;
+    //           `
+    //           );
+    //           el2.appendChild(screenShareTrack);
+    //           el2.appendChild(el3);
+    //           el3.appendChild(el4);
+    //           el4.appendChild(el5);
+    //           el5.innerText = participant.identity;
+    //           const button = document.createElement('button');
+    //           button.setAttribute('class', 'lk-participant-button');
+    //           button.innerHTML = `<i class="fas fa-expand-alt"></i>`;
+    //           button.onclick = () => {
+    //             this.toggleExpand(el2, participant.identity);
+    //             console.log(`Button clicked for ${participant.identity}!`);
+    //           };
+
+    //           el3.appendChild(button);
+    //           container?.appendChild(el2);
+    //         } else {
+    //           console.error('Remote screen share container not found');
+    //         }
+    //       }, 100);
+    //     }
+    //   }
+    // );
+
     this.room.on(
       RoomEvent.LocalTrackPublished,
       async (
@@ -913,9 +1165,11 @@ export class LivekitService {
           console.log('testing avatar', participantTile);
           if (participantTile) {
             // Remove the avatar image if it exists
-            const avatarImg = participantTile.querySelector('img');
-            if (avatarImg) {
-              participantTile.removeChild(avatarImg);
+            const initialsDiv = participantTile.querySelector(
+              '.participant-initials'
+            );
+            if (initialsDiv) {
+              participantTile.removeChild(initialsDiv);
             }
 
             // Attach the video track to the participant tile
@@ -988,10 +1242,37 @@ export class LivekitService {
             console.log('local track published', publication.track);
           } else {
             console.error('Participant tile not found');
-            this.openSnackBar(`Video could not open. Try again later`);
+            this.openSnackBar('Video could not open. Try again later');
           }
         }
+        // if (
+        //   publication.source === Track.Source.Microphone &&
+        //   publication.track instanceof LocalAudioTrack
+        // ) {
+        //   if (!isKrispNoiseFilterSupported()) {
+        //     console.warn(
+        //       'Krisp noise filter is currently not supported on this browser'
+        //     );
+        //     return;
+        //   }
+        //   // Once instantiated, the filter will begin initializing and will download additional resources
+        //   const krispProcessor = KrispNoiseFilter();
+        //   console.log('Enabling LiveKit Krisp noise filter');
+        //   await publication.track.setProcessor(krispProcessor);
 
+        //   // To enable/disable the noise filter, use setEnabled()
+        //   await krispProcessor.setEnabled(true);
+        //   console.log(
+        //     `Krisp noise filter status: ${
+        //       krispProcessor.isEnabled() ? 'Enabled' : 'Disabled'
+        //     }`
+        //   );
+        //   // To check the current status use:
+        //   // krispProcessor.isEnabled()
+
+        //   // To stop and dispose of the Krisp processor, simply call:
+        //   // await trackPublication.track.stopProcessor()
+        // }
         if (
           publication.source === Track.Source.Microphone &&
           publication.track instanceof LocalAudioTrack
@@ -1020,51 +1301,51 @@ export class LivekitService {
           // To stop and dispose of the Krisp processor, simply call:
           // await trackPublication.track.stopProcessor()
         }
-        // if (publication.track && publication.track.kind === 'audio') {
-        //   const participantTile = document.getElementById(`${participant.sid}`);
-        //   if (participantTile) {
-        //     // Remove any existing microphone visualizations
-        //     let micVisualization =
-        //       participantTile.querySelector('.mic-visualization');
-        //     if (micVisualization) {
-        //       participantTile.removeChild(micVisualization);
-        //     }
+        if (publication.track && publication.track.kind === 'audio') {
+          const participantTile = document.getElementById(`${participant.sid}`);
+          if (participantTile) {
+            // Remove any existing microphone visualizations
+            let micVisualization =
+              participantTile.querySelector('.mic-visualization');
+            if (micVisualization) {
+              participantTile.removeChild(micVisualization);
+            }
 
-        //     // Create and append the mic visualization container
-        //     micVisualization = document.createElement('div');
-        //     micVisualization.classList.add('mic-visualization');
-        //     micVisualization.setAttribute(
-        //       'style',
-        //       `
-        //       height: 10vh;
-        //       width: 10vh;
-        //       display: flex;
-        //       align-items: center;
-        //       justify-content: center;
-        //       background: rgb(20, 112, 233);
-        //       border-radius: 100%;
-        //     `
-        //     );
+            // Create and append the mic visualization container
+            micVisualization = document.createElement('div');
+            micVisualization.classList.add('mic-visualization');
+            micVisualization.setAttribute(
+              'style',
+              `
+              height: 10vh;
+              width: 10vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: rgb(20, 112, 233);
+              border-radius: 100%;
+            `
+            );
 
-        //     const canvas = document.createElement('canvas');
-        //     canvas.width = 150; // Set desired canvas size
-        //     canvas.height = 150;
-        //     canvas.style.borderRadius = '5px';
-        //     canvas.style.width = '3rem';
-        //     canvas.style.height = '70%';
+            const canvas = document.createElement('canvas');
+            canvas.width = 150; // Set desired canvas size
+            canvas.height = 150;
+            canvas.style.borderRadius = '5px';
+            canvas.style.width = '3rem';
+            canvas.style.height = '70%';
 
-        //     micVisualization.appendChild(canvas);
-        //     participantTile.appendChild(micVisualization);
+            micVisualization.appendChild(canvas);
+            participantTile.appendChild(micVisualization);
 
-        //     // Start microphone visualization
-        //     const audioTrack = publication.track as LocalAudioTrack; // Type assertion
-        //     this.startMicVisualization(canvas, audioTrack);
-        //   } else {
-        //     console.error(
-        //       `Participant tile for ${participant.identity} not found`
-        //     );
-        //   }
-        // }
+            // Start microphone visualization
+            const audioTrack = publication.track as LocalAudioTrack; // Type assertion
+            this.startMicVisualization(canvas, audioTrack);
+          } else {
+            console.error(
+              `Participant tile for ${participant.identity} not found`
+            );
+          }
+        }
 
         this.screenShareTrackSubscribed.next(publication.track);
         if (publication.source === Track.Source.ScreenShare) {
@@ -1138,7 +1419,7 @@ export class LivekitService {
               el5.innerText = participant.identity;
               const button = document.createElement('button');
               button.setAttribute('class', 'lk-participant-button');
-              button.innerHTML = `<i class="fas fa-expand-alt"></i>`;
+              button.innerHTML = '<i class="fas fa-expand-alt"></i>';
               button.onclick = () => {
                 this.toggleExpand(el2, participant.identity);
                 console.log(`Button clicked for ${participant.identity}!`);
@@ -1475,20 +1756,44 @@ export class LivekitService {
    * @param {Participant} participant - The participant who owns the unmuted track.
    */
 
+  // handleTrackUnmuted(publication: TrackPublication, participant: Participant) {
+  //   console.log('Track :', publication);
+  //   console.log('testing', publication.kind);
+  //   if (
+  //     publication.kind === 'video' &&
+  //     publication.track?.source === Track.Source.Camera
+  //   ) {
+  //     console.log('video is on');
+  //     const containerById = document.getElementById(`${participant.sid}`);
+  //     const imgElement = containerById?.getElementsByTagName('img');
+  //     imgElement![0]?.remove();
+  //   }
+  // }
   handleTrackUnmuted(publication: TrackPublication, participant: Participant) {
-    console.log('Track :', publication);
-    console.log('testing', publication.kind);
     if (
       publication.kind === 'video' &&
       publication.track?.source === Track.Source.Camera
     ) {
-      console.log('video is on');
-      const containerById = document.getElementById(`${participant.sid}`);
-      const imgElement = containerById?.getElementsByTagName('img');
-      imgElement![0]?.remove();
+      console.log('Video is on');
+
+      const container = document.getElementById(`${participant.sid}`);
+      if (!container) return;
+
+      // Remove participant-initials if present
+      const initialsEl = container.querySelector('.participant-initials');
+      if (initialsEl) {
+        initialsEl.remove();
+      }
+
+      // Show participant metadata if hidden
+      const metadataEl = container.querySelector(
+        '.lk-participant-metadata'
+      ) as HTMLElement;
+      if (metadataEl) {
+        metadataEl.style.display = 'flex';
+      }
     }
   }
-
   /**
    * Handles the event when a track is muted or unmuted.
    *
@@ -1498,36 +1803,82 @@ export class LivekitService {
    * @param {TrackPublication} publication - The publication of the track that was muted or unmuted.
    * @param {Participant} participant - The participant who owns the track.
    */
+  // handleTrackMuted(publication: TrackPublication, participant: Participant) {
+  //   console.log('Track mute/unmute event:', publication, participant);
+  //   if (
+  //     publication.kind === 'video' &&
+  //     publication.track?.source === Track.Source.Camera
+  //   ) {
+  //     // Check if the track is muted
+  //     if (publication.isMuted) {
+  //       // Handle logic for when video is muted
+  //       console.log('Video is off');
+  //       // const container = document.querySelector('.lk-participant-tile');
+  //       const containerById = document.getElementById(`${participant.sid}`);
+  //       // const imgElement = document.createElement('img');
+  //       // imgElement.setAttribute('src', '../assets/avatar.png');
+  //       const iconPlaceholder = document.createElement('span');
+  //       iconPlaceholder.classList.add('icon-placeholder');
+  //       iconPlaceholder.setAttribute(
+  //         'style',
+  //         'width: 90px; height: 90px; background-color: #009d99; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);'
+  //       );
+  //       const imgElement = document.createElement('i');
+  //       imgElement.classList.add('far', 'fa-user');
+  //       imgElement.setAttribute('style', 'font-size: 50px; color: white;');
+  //       // containerById?.appendChild(imgElement);
+
+  //       iconPlaceholder.appendChild(imgElement);
+  //       containerById.appendChild(iconPlaceholder);
+  //     } else {
+  //       // Handle logic for when video is unmuted
+  //       console.log('Video is on');
+  //     }
+  //   }
+  // }
+
   handleTrackMuted(publication: TrackPublication, participant: Participant) {
-    console.log('Track mute/unmute event:', publication, participant);
     if (
       publication.kind === 'video' &&
       publication.track?.source === Track.Source.Camera
     ) {
-      // Check if the track is muted
-      if (publication.isMuted) {
-        // Handle logic for when video is muted
-        console.log('Video is off');
-        // const container = document.querySelector('.lk-participant-tile');
-        const containerById = document.getElementById(`${participant.sid}`);
-        // const imgElement = document.createElement('img');
-        // imgElement.setAttribute('src', '../assets/avatar.png');
-        const iconPlaceholder = document.createElement('span');
-        iconPlaceholder.classList.add('icon-placeholder');
-        iconPlaceholder.setAttribute(
-          'style',
-          'width: 90px; height: 90px; background-color: #009d99; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);'
-        );
-        const imgElement = document.createElement('i');
-        imgElement.classList.add('far', 'fa-user');
-        imgElement.setAttribute('style', 'font-size: 50px; color: white;');
-        // containerById?.appendChild(imgElement);
+      console.log('Video is off');
 
-        iconPlaceholder.appendChild(imgElement);
-        containerById.appendChild(iconPlaceholder);
-      } else {
-        // Handle logic for when video is unmuted
-        console.log('Video is on');
+      const container = document.getElementById(`${participant.sid}`);
+      if (!container) return;
+
+      // Hide participant metadata
+      const metadataEl = container.querySelector(
+        '.lk-participant-metadata'
+      ) as HTMLElement;
+      if (metadataEl) {
+        metadataEl.style.display = 'none';
+      }
+
+      // Check if initials already exist
+      const initialsEl = container.querySelector('.participant-initials');
+      if (!initialsEl) {
+        const initialsContainer = document.createElement('div');
+        initialsContainer.setAttribute('class', 'participant-initials');
+        initialsContainer.style.cssText = `
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background-color: #009d99;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          font-weight: bold;
+          text-transform: uppercase;
+        `;
+        initialsContainer.innerText = this.getInitials(participant.identity);
+        container.appendChild(initialsContainer);
       }
     }
   }
@@ -1921,6 +2272,7 @@ export class LivekitService {
    *
    * @returns {void}
    */
+
   // createAvatar(participant: Participant) {
   //   const el2 = document.createElement('div');
   //   el2.setAttribute('class', 'lk-participant-tile');
@@ -1939,6 +2291,7 @@ export class LivekitService {
   //          min-height: 25%;
   //    `
   //   );
+
   //   setTimeout(() => {
   //     const container = document.querySelector('.lk-grid-layout');
   //     if (container) {
@@ -1960,6 +2313,7 @@ export class LivekitService {
   //          line-height: 1;
   //        `
   //       );
+
   //       // Create metadata item
   //       const el4 = document.createElement('div');
   //       el4.setAttribute('class', 'lk-participant-metadata-item');
@@ -1973,6 +2327,7 @@ export class LivekitService {
   //          border-radius: calc(var(--lk-border-radius) / 2);
   //        `
   //       );
+
   //       // Create participant name element
   //       const el5 = document.createElement('span');
   //       el5.setAttribute('class', 'lk-participant-name');
@@ -1984,50 +2339,41 @@ export class LivekitService {
   //         `
   //       );
   //       el5.innerText = participant.identity;
+
   //       // Append elements
   //       el4.appendChild(el5);
   //       el3.appendChild(el4);
   //       el2.appendChild(el3);
-  //       // Create avatar image
-  //       // const imgElement = document.createElement('i');
-  //       // imgElement.classList.add('far', 'fa-user');
-  //       // imgElement.style.cssText = `
-  //       //   position: absolute;
-  //       //   top: 50%;
-  //       //   left: 50%;
-  //       //   transform: translate(-50%, -50%);
-  //       //   width: 60px;
-  //       //   height: 60px;
-  //       //   border-radius: 50%;
-  //       //   object-fit: cover;
-  //       //   color: white;
-  //       //   object-position: center;
-  //       // `;
-  //       const iconPlaceholder = document.createElement('span');
-  //       iconPlaceholder.classList.add('icon-placeholder');
-  //       iconPlaceholder.setAttribute(
-  //         'style',
-  //         'width: 90px; height: 90px; background-color: #009d99; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);'
-  //       );
-  //       const imgElement = document.createElement('i');
-  //       imgElement.classList.add('far', 'fa-user');
-  //       imgElement.setAttribute('style', 'font-size: 50px; color: white;');
-  //       // containerById?.appendChild(imgElement);
 
-  //       // containerById.appendChild(iconPlaceholder);
+  //       // Create initials element
+  //       const initialsContainer = document.createElement('div');
+  //       initialsContainer.setAttribute('class', 'participant-initials');
 
-  //       const audioElement = document.createElement('span');
-  //       audioElement.setAttribute('class', 'lk-participant-name');
-  //       audioElement.setAttribute(
-  //         'style',
-  //         `
-  //           font-size: 0.875rem;
-  //           color: white;
-  //         `
-  //       );
-  //       audioElement.innerText = participant.identity;
-  //       iconPlaceholder.appendChild(imgElement);
-  //       el2.appendChild(iconPlaceholder);
+  //       initialsContainer.style.cssText = `
+  //         position: absolute;
+  //         top: 50%;
+  //         left: 50%;
+  //         transform: translate(-50%, -50%);
+  //         width: 60px;
+  //         height: 60px;
+  //         border-radius: 50%;
+  //         background-color: #009d99;
+  //         color: #ffffff;
+  //         display: flex;
+  //         align-items: center;
+  //         justify-content: center;
+  //         font-size: 1.5rem;
+  //         font-weight: bold;
+  //         text-transform: uppercase;
+  //       `;
+
+  //       // Extract initials from the participant's identity
+  //       const initials = this.getInitials(participant.identity);
+  //       initialsContainer.innerText = initials;
+
+  //       // Append initials container to the participant tile
+  //       el2.appendChild(initialsContainer);
+
   //       // Append participant tile to container
   //       container.appendChild(el2);
   //     }
@@ -2048,17 +2394,16 @@ export class LivekitService {
        background-color: #000;
        min-width: 280px;
        max-width:100%;
-           min-height: 25%;
+       min-height: 25%;
      `
     );
 
     setTimeout(() => {
       const container = document.querySelector('.lk-grid-layout');
       if (container) {
-        // Create metadata container
-        const el3 = document.createElement('div');
-        el3.setAttribute('class', 'lk-participant-metadata');
-        el3.setAttribute(
+        const metadata = document.createElement('div');
+        metadata.setAttribute('class', 'lk-participant-metadata');
+        metadata.setAttribute(
           'style',
           `
            position: absolute;
@@ -2074,10 +2419,9 @@ export class LivekitService {
          `
         );
 
-        // Create metadata item
-        const el4 = document.createElement('div');
-        el4.setAttribute('class', 'lk-participant-metadata-item');
-        el4.setAttribute(
+        const nameContainer = document.createElement('div');
+        nameContainer.setAttribute('class', 'lk-participant-metadata-item');
+        nameContainer.setAttribute(
           'style',
           `
            display: flex;
@@ -2088,27 +2432,24 @@ export class LivekitService {
          `
         );
 
-        // Create participant name element
-        const el5 = document.createElement('span');
-        el5.setAttribute('class', 'lk-participant-name');
-        el5.setAttribute(
+        const nameSpan = document.createElement('span');
+        nameSpan.setAttribute('class', 'lk-participant-name');
+        nameSpan.setAttribute(
           'style',
           `
             font-size: 0.875rem;
             color: white;
           `
         );
-        el5.innerText = participant.identity;
+        nameSpan.innerText = participant.identity;
 
-        // Append elements
-        el4.appendChild(el5);
-        el3.appendChild(el4);
-        el2.appendChild(el3);
+        nameContainer.appendChild(nameSpan);
+        metadata.appendChild(nameContainer);
+        el2.appendChild(metadata);
 
         // Create initials element
         const initialsContainer = document.createElement('div');
         initialsContainer.setAttribute('class', 'participant-initials');
-
         initialsContainer.style.cssText = `
           position: absolute;
           top: 50%;
@@ -2126,15 +2467,17 @@ export class LivekitService {
           font-weight: bold;
           text-transform: uppercase;
         `;
+        initialsContainer.innerText = this.getInitials(participant.identity);
 
-        // Extract initials from the participant's identity
-        const initials = this.getInitials(participant.identity);
-        initialsContainer.innerText = initials;
+        // Initially show or hide based on participant camera state
+        const videoTrack = participant.getTrackPublication(Track.Source.Camera);
+        const isVideoMuted = !videoTrack || videoTrack.isMuted;
 
-        // Append initials container to the participant tile
-        el2.appendChild(initialsContainer);
+        if (isVideoMuted) {
+          metadata.style.display = 'none';
+          el2.appendChild(initialsContainer);
+        }
 
-        // Append participant tile to container
         container.appendChild(el2);
       }
     }, 100);

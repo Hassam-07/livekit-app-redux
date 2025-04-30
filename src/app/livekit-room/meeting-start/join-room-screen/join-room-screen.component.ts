@@ -110,7 +110,7 @@ export class JoinRoomScreenComponent {
 
     this.route.params.subscribe((params) => {
       console.log('Route params:', params);
-      this.dynamicRoomName = params['roomname'];
+      this.dynamicRoomName = params['roomName'];
 
       // Dispatch the action after updating dynamicRoomName
       this.store.dispatch(
