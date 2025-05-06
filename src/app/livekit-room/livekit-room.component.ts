@@ -106,6 +106,8 @@ export class LivekitRoomComponent {
   bookmarkForm: FormGroup;
   isSpeaking: boolean = false;
   recognition: any;
+  isUsersSidebarOpen: boolean = false;
+  isMobileMenuOpen: boolean = false;
 
   // To periodically check if the user is speaking
   audioContext: AudioContext | null = null;
@@ -1279,6 +1281,19 @@ export class LivekitRoomComponent {
 
     this.store.dispatch(LiveKitRoomActions.LiveKitActions.toggleVideo());
     this.toggleCamera();
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
+  }
+  openUsersSidebar() {
+    this.isUsersSidebarOpen = true;
+  }
+  closeUsersSidebar() {
+    this.isUsersSidebarOpen = false;
+  }
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
   /**

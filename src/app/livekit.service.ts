@@ -992,79 +992,77 @@ export class LivekitService {
     //       }
     //     }
 
-    //     if (
-    //       publication.source === Track.Source.Microphone &&
-    //       publication.track instanceof LocalAudioTrack
-    //     ) {
-    //       if (!isKrispNoiseFilterSupported()) {
-    //         console.warn(
-    //           'Krisp noise filter is currently not supported on this browser'
-    //         );
-    //         return;
-    //       }
-    //       // Once instantiated, the filter will begin initializing and will download additional resources
-    //       const krispProcessor = KrispNoiseFilter();
-    //       console.log('Enabling LiveKit Krisp noise filter');
-    //       await publication.track.setProcessor(krispProcessor);
+    // if (
+    //   publication.source === Track.Source.Microphone &&
+    //   publication.track instanceof LocalAudioTrack
+    // ) {
+    //   if (!isKrispNoiseFilterSupported()) {
+    //     console.warn(
+    //       'Krisp noise filter is currently not supported on this browser'
+    //     );
+    //     return;
+    //   }
+    //   // Once instantiated, the filter will begin initializing and will download additional resources
+    //   const krispProcessor = KrispNoiseFilter();
+    //   console.log('Enabling LiveKit Krisp noise filter');
+    //   await publication.track.setProcessor(krispProcessor);
 
-    //       // To enable/disable the noise filter, use setEnabled()
-    //       await krispProcessor.setEnabled(true);
-    //       console.log(
-    //         `Krisp noise filter status: ${
-    //           krispProcessor.isEnabled() ? 'Enabled' : 'Disabled'
-    //         }`
-    //       );
-    //       // To check the current status use:
-    //       // krispProcessor.isEnabled()
+    //   // To enable/disable the noise filter, use setEnabled()
+    //   await krispProcessor.setEnabled(true);
+    //   console.log(
+    //     `Krisp noise filter status: ${
+    //       krispProcessor.isEnabled() ? 'Enabled' : 'Disabled'
+    //     }`
+    //   );
+    //   // To check the current status use:
+    //   // krispProcessor.isEnabled()
 
-    //       // To stop and dispose of the Krisp processor, simply call:
-    //       // await trackPublication.track.stopProcessor()
+    //   // To stop and dispose of the Krisp processor, simply call:
+    //   // await trackPublication.track.stopProcessor()
+    // }
+    // if (publication.track && publication.track.kind === 'audio') {
+    //   const participantTile = document.getElementById(`${participant.sid}`);
+    //   if (participantTile) {
+    //     // Remove any existing microphone visualizations
+    //     let micVisualization =
+    //       participantTile.querySelector('.mic-visualization');
+    //     if (micVisualization) {
+    //       participantTile.removeChild(micVisualization);
     //     }
-    //     // if (publication.track && publication.track.kind === 'audio') {
-    //     //   const participantTile = document.getElementById(`${participant.sid}`);
-    //     //   if (participantTile) {
-    //     //     // Remove any existing microphone visualizations
-    //     //     let micVisualization =
-    //     //       participantTile.querySelector('.mic-visualization');
-    //     //     if (micVisualization) {
-    //     //       participantTile.removeChild(micVisualization);
-    //     //     }
 
-    //     //     // Create and append the mic visualization container
-    //     //     micVisualization = document.createElement('div');
-    //     //     micVisualization.classList.add('mic-visualization');
-    //     //     micVisualization.setAttribute(
-    //     //       'style',
-    //     //       `
-    //     //       height: 10vh;
-    //     //       width: 10vh;
-    //     //       display: flex;
-    //     //       align-items: center;
-    //     //       justify-content: center;
-    //     //       background: rgb(20, 112, 233);
-    //     //       border-radius: 100%;
-    //     //     `
-    //     //     );
+    //     // Create and append the mic visualization container
+    //     micVisualization = document.createElement('div');
+    //     micVisualization.classList.add('mic-visualization');
+    //     micVisualization.setAttribute(
+    //       'style',
+    //       `
+    //           height: 10vh;
+    //           width: 10vh;
+    //           display: flex;
+    //           align-items: center;
+    //           justify-content: center;
+    //           background: rgb(20, 112, 233);
+    //           border-radius: 100%;
+    //         `
+    //     );
 
-    //     //     const canvas = document.createElement('canvas');
-    //     //     canvas.width = 150; // Set desired canvas size
-    //     //     canvas.height = 150;
-    //     //     canvas.style.borderRadius = '5px';
-    //     //     canvas.style.width = '3rem';
-    //     //     canvas.style.height = '70%';
+    //     const canvas = document.createElement('canvas');
+    //     canvas.width = 150; // Set desired canvas size
+    //     canvas.height = 150;
+    //     canvas.style.borderRadius = '5px';
+    //     canvas.style.width = '3rem';
+    //     canvas.style.height = '70%';
 
-    //     //     micVisualization.appendChild(canvas);
-    //     //     participantTile.appendChild(micVisualization);
+    //     micVisualization.appendChild(canvas);
+    //     participantTile.appendChild(micVisualization);
 
-    //     //     // Start microphone visualization
-    //     //     const audioTrack = publication.track as LocalAudioTrack; // Type assertion
-    //     //     this.startMicVisualization(canvas, audioTrack);
-    //     //   } else {
-    //     //     console.error(
-    //     //       `Participant tile for ${participant.identity} not found`
-    //     //     );
-    //     //   }
-    //     // }
+    //     // Start microphone visualization
+    //     const audioTrack = publication.track as LocalAudioTrack; // Type assertion
+    //     this.startMicVisualization(canvas, audioTrack);
+    //   } else {
+    //     console.error(`Participant tile for ${participant.identity} not found`);
+    //   }
+    // }
 
     //     this.screenShareTrackSubscribed.next(publication.track);
     //     if (publication.source === Track.Source.ScreenShare) {
@@ -1245,34 +1243,6 @@ export class LivekitService {
             this.openSnackBar('Video could not open. Try again later');
           }
         }
-        // if (
-        //   publication.source === Track.Source.Microphone &&
-        //   publication.track instanceof LocalAudioTrack
-        // ) {
-        //   if (!isKrispNoiseFilterSupported()) {
-        //     console.warn(
-        //       'Krisp noise filter is currently not supported on this browser'
-        //     );
-        //     return;
-        //   }
-        //   // Once instantiated, the filter will begin initializing and will download additional resources
-        //   const krispProcessor = KrispNoiseFilter();
-        //   console.log('Enabling LiveKit Krisp noise filter');
-        //   await publication.track.setProcessor(krispProcessor);
-
-        //   // To enable/disable the noise filter, use setEnabled()
-        //   await krispProcessor.setEnabled(true);
-        //   console.log(
-        //     `Krisp noise filter status: ${
-        //       krispProcessor.isEnabled() ? 'Enabled' : 'Disabled'
-        //     }`
-        //   );
-        //   // To check the current status use:
-        //   // krispProcessor.isEnabled()
-
-        //   // To stop and dispose of the Krisp processor, simply call:
-        //   // await trackPublication.track.stopProcessor()
-        // }
         if (
           publication.source === Track.Source.Microphone &&
           publication.track instanceof LocalAudioTrack
@@ -1346,7 +1316,6 @@ export class LivekitService {
             );
           }
         }
-
         this.screenShareTrackSubscribed.next(publication.track);
         if (publication.source === Track.Source.ScreenShare) {
           this.localScreenShareCount++;
